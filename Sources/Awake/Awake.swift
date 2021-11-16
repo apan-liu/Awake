@@ -9,6 +9,7 @@ import Foundation
 
 class Awake {
     struct Device {
+        var IPaddr: String
         var MAC: String
         var BroadcastAddr: String
         var Port: UInt16 = 9
@@ -25,7 +26,7 @@ class Awake {
         var target = sockaddr_in()
         
         target.sin_family = sa_family_t(AF_INET)
-        target.sin_addr.s_addr = inet_addr(device.BroadcastAddr)
+        target.sin_addr.s_addr = inet_addr(device.IPaddr)
         
         let isLittleEndian = Int(OSHostByteOrder()) == OSLittleEndian
         target.sin_port = isLittleEndian ? _OSSwapInt16(device.Port) : device.Port
